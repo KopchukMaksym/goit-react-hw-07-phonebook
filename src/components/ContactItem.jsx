@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import s from './FormStyles.module.css';
 
 const ContactItem = ({ contact, onDelete }) => {
-  const { id, name, number } = contact;
+  const { id, name, phone } = contact;
   return (
     <li className={s.item}>
       <p>
-        {name} : {number}
+        {name} : {phone}
       </p>
       <button
         className={s.btnDelete}
@@ -25,6 +25,6 @@ ContactItem.propTypes = {
   contact: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
-    number: PropTypes.string,
+    phone: PropTypes.string,
   }),
 };

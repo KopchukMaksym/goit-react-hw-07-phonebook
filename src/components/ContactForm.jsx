@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { nanoid } from 'nanoid';
 import s from './FormStyles.module.css';
 
 export const ContactForm = ({ onSubmit }) => {
@@ -23,12 +22,10 @@ export const ContactForm = ({ onSubmit }) => {
   };
 
   const handleSubmit = e => {
-    const idEl = nanoid();
     e.preventDefault();
     onSubmit({
-      id: idEl,
       name,
-      number,
+      phone: number,
     });
     setName('');
     setNumber('');

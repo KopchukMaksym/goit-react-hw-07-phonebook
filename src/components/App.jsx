@@ -1,8 +1,13 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { addContact, deleteContact } from 'redux/contactSlice';
 import { filterContact } from 'redux/filterSlice';
 import { getContacts, getFilter } from 'redux/selectors';
+import {
+  addContactsThunk,
+  deleteContactsThunk,
+  getContactsThunk,
+} from 'redux/thunk.contacts';
 import { ContactForm } from './ContactForm';
 
 import ContactList from './ContactList';
@@ -15,6 +20,10 @@ export const App = () => {
   const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getContactsThunk());
+  }, [dispatch]);
+
   const filterItems = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter)
   );
@@ -22,7 +31,7 @@ export const App = () => {
   return (
     <div className={s.section}>
       <h1>Phonebook</h1>
-      <ContactForm onSubmit={contact => dispatch(addContact(contact))} />
+      <ContactForm onSubmit={contact => dispatch(addContactsThunk(contact))} />
 
       <h2>Contacts</h2>
       <Filter
@@ -32,7 +41,7 @@ export const App = () => {
       {!!contacts.length && (
         <ContactList
           contacts={filterItems}
-          onDelete={id => dispatch(deleteContact(id))}
+          onDelete={id => dispatch(deleteContactsThunk(id))}
         />
       )}
     </div>
