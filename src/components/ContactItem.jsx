@@ -1,8 +1,13 @@
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { deleteContactsThunk } from 'redux/contacts/thunk.contacts';
 import s from './FormStyles.module.css';
 
-const ContactItem = ({ contact, onDelete }) => {
+const ContactItem = ({ contact }) => {
   const { id, name, phone } = contact;
+
+  const dispatch = useDispatch();
+
   return (
     <li className={s.item}>
       <p>
@@ -10,7 +15,7 @@ const ContactItem = ({ contact, onDelete }) => {
       </p>
       <button
         className={s.btnDelete}
-        onClick={() => onDelete(id)}
+        onClick={() => dispatch(deleteContactsThunk(id))}
         type="button"
       >
         Delete

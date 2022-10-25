@@ -1,13 +1,21 @@
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { filterContact } from 'redux/filter/filterSlice';
+import { selectFilter } from 'redux/selectors';
+
 import s from './FormStyles.module.css';
 
-const Filter = ({ filter, onFilter }) => {
+const Filter = () => {
+  const dispatch = useDispatch();
+
+  const filter = useSelector(selectFilter);
+
   return (
     <>
       <h3>Find contacts by name</h3>
       <input
         className={s.inputFilter}
-        onChange={({ target: { value } }) => onFilter(value)}
+        onChange={({ target: { value } }) => dispatch(filterContact(value))}
         type="text"
         value={filter}
         name="filter"

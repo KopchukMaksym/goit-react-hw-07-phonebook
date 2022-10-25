@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addContactsThunk } from 'redux/contacts/thunk.contacts';
+
 import s from './FormStyles.module.css';
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const dispatch = useDispatch();
 
   const handleNameValue = e => {
     const { name } = e.target;
@@ -23,10 +28,7 @@ export const ContactForm = ({ onSubmit }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit({
-      name,
-      phone: number,
-    });
+    dispatch(addContactsThunk({ name, phone: number }));
     setName('');
     setNumber('');
   };
